@@ -21,7 +21,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser-esbuild",
           "options": {
-            "outputPath": "dist/in-touch",
+            "outputPath": "dist/in-touch/browser",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -101,6 +101,59 @@
             ],
             "scripts": []
           }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/in-touch/server",
+            "main": "server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "vendorChunk": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "in-touch:build:development",
+              "serverTarget": "in-touch:server:development"
+            },
+            "production": {
+              "browserTarget": "in-touch:build:production",
+              "serverTarget": "in-touch:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "in-touch:build:production",
+              "serverTarget": "in-touch:server:production"
+            },
+            "development": {
+              "browserTarget": "in-touch:build:development",
+              "serverTarget": "in-touch:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
