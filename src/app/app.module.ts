@@ -5,14 +5,16 @@ import { AppComponent } from './app.component';
 import { LOCAL_STORAGE } from "./shared/providers/local-storage/local-storage.provider";
 import { HttpClientModule } from "@angular/common/http";
 import { TranslationModule } from "./shared/translation/translation.module";
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
 	declarations: [
 		AppComponent,
 	],
 	imports: [
+		BrowserModule.withServerTransition({appId: 'serverApp'}),
+		BrowserAnimationsModule,
 		HttpClientModule,
-		BrowserModule.withServerTransition({ appId: 'serverApp' }),
 		AppRoutingModule,
 		TranslationModule,
 	],
