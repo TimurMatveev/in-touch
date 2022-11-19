@@ -1,18 +1,28 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { LOCAL_STORAGE } from "./shared/providers/local-storage/local-storage.provider";
+import { HttpClientModule } from "@angular/common/http";
+import { TranslationModule } from "./shared/translation/translation.module";
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule.withServerTransition({ appId: 'serverApp' }),
-    AppRoutingModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+	],
+	imports: [
+		HttpClientModule,
+		BrowserModule.withServerTransition({ appId: 'serverApp' }),
+		AppRoutingModule,
+		TranslationModule,
+	],
+	providers: [
+		{
+			provide: LOCAL_STORAGE,
+			useValue: localStorage,
+		},
+	],
+	bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}
